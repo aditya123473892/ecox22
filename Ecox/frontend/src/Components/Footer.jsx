@@ -1,18 +1,127 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-transparent text-black py-6">
-      <div className="container mx-auto text-center">
-        <p className="mb-4">&copy; 2024 EcoExchange. All rights reserved.</p>
-        <ul className="flex justify-center space-x-6">
-          <li><a href="/privacy-policy" className="text-black hover:underline">Privacy Policy</a></li>
-          <li><a href="/terms-of-service" className="text-black hover:underline">Terms of Service</a></li>
-          <li><a href="/contact-us" className="text-black hover:underline">Contact Us</a></li>
-        </ul>
+    <footer className="footer section">
+      <div className="footer__container container grid">
+        <div className="footer__content grid">
+          <div className="footer__data">
+            <h3 className="footer__title">EcoXange</h3>
+            <p className="footer__description">
+              Decentralized <br /> Carbon credit Trading Platform <br />{" "}
+            </p>
+            <div>
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                className="footer__social"
+              >
+                <i className="ri-facebook-box-fill"></i>
+              </a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                className="footer__social"
+              >
+                <i className="ri-twitter-fill"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                className="footer__social"
+              >
+                <i className="ri-instagram-fill"></i>
+              </a>
+              <a
+                href="https://www.youtube.com/"
+                target="_blank"
+                className="footer__social"
+              >
+                <i className="ri-youtube-fill"></i>
+              </a>
+            </div>
+          </div>
+
+          <div className="footer__data">
+            <h3 className="footer__subtitle">About</h3>
+            <ul>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  About Us
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Features
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  New & Blog
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer__data">
+            <h3 className="footer__subtitle">Company</h3>
+            <ul>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Team
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Plan Pricing
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Become a member
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer__data">
+            <h3 className="footer__subtitle">Support</h3>
+            <ul>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  FAQs
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Support Center
+                </a>
+              </li>
+              <li className="footer__item">
+                <a href="" className="footer__link">
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer__rights">
+          <p className="footer__copy">
+            &#169; 2024 EcoXange. All rigths reserved.
+          </p>
+          <div className="footer__terms">
+            <a href="#" className="footer__terms-link">
+              Terms & Agreements
+            </a>
+            <a href="#" className="footer__terms-link">
+              Privacy Policy
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
 
-export default Footer  
+export default Footer;

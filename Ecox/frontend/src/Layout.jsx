@@ -1,18 +1,17 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from './Components/Footer'
-import Navbar from './Components/Navbar'
+// src/Layout.js
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Example from "./Components/NewNav";
+import Footer from "./Components/Footer";
 
-function Layout() {
+const Layout = () => {
   return (
-   <div className='w-[100vw] h-[100vh] flex flex-col justify-between'>
-   <Navbar />
-   <div className=''>
-   <Outlet/>
-   </div>
-   <Footer />
-   </div>
-  )
-}
+    <div>
+      <Example />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
 
-export default Layout
+export default Layout;

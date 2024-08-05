@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { dataActions } from "../store/data-slice";
 import { backendUrl } from "../App";
 import Web3 from "web3";
-import OneTimeSaleToken from '../../../backend/contracts/OneTimeSaleToken.json';
-import { useNavigate } from 'react-router-dom';
+import OneTimeSaleToken from "../../../backend/contracts/OneTimeSaleToken.json";
+import { useNavigate } from "react-router-dom";
+import landingimage from "../assets/landingimage.jpg";
 
 export function RegisterAuditor() {
   const [name, setName] = useState("");
@@ -20,7 +21,6 @@ export function RegisterAuditor() {
   const walletAddress = useSelector((state) => state.data.walletAddress);
   const navigate = useNavigate();
 
-  
   const connectWallet = async () => {
     if (window.ethereum) {
       console.log("MetaMask detected");
@@ -35,7 +35,9 @@ export function RegisterAuditor() {
         setErrorMessage("Failed to connect to MetaMask. Please try again.");
       }
     } else {
-      setErrorMessage("MetaMask not detected. Please install MetaMask to use this feature.");
+      setErrorMessage(
+        "MetaMask not detected. Please install MetaMask to use this feature."
+      );
     }
   };
 
@@ -70,15 +72,25 @@ export function RegisterAuditor() {
     }
   }
 
-  const initiateRegistrationTransaction = async (name, email, accreditationNumber, walletAddress) => {
+  const initiateRegistrationTransaction = async (
+    name,
+    email,
+    accreditationNumber,
+    walletAddress
+  ) => {
     if (!walletAddress) {
-      throw new Error("Wallet not connected. Please connect your MetaMask wallet.");
+      throw new Error(
+        "Wallet not connected. Please connect your MetaMask wallet."
+      );
     }
 
     const web3 = new Web3(window.ethereum);
     const contractAddress = "0xEEDd8EB6D2522e582b4ffE8cDa7E536047c646F4";
-    
-    const contract = new web3.eth.Contract(OneTimeSaleToken.abi, contractAddress);
+
+    const contract = new web3.eth.Contract(
+      OneTimeSaleToken.abi,
+      contractAddress
+    );
 
     try {
       console.log("Sending transaction...");
@@ -111,21 +123,37 @@ export function RegisterAuditor() {
       console.log("Starting registration process...");
       const metaDataAudi = await sendMetaDataAudi();
       if (metaDataAudi) {
-        const transactionResult = await initiateRegistrationTransaction(name, email, audiNo, metaMaskAddress);
-        console.log("Registration successful. Transaction hash:", transactionResult.transactionHash);
-        alert("Registration transaction successful! Transaction hash: " + transactionResult.transactionHash);
-      
+        const transactionResult = await initiateRegistrationTransaction(
+          name,
+          email,
+          audiNo,
+          metaMaskAddress
+        );
+        console.log(
+          "Registration successful. Transaction hash:",
+          transactionResult.transactionHash
+        );
+        alert(
+          "Registration transaction successful! Transaction hash: " +
+            transactionResult.transactionHash
+        );
       } else {
         throw new Error("Failed to upload metadata");
       }
     } catch (error) {
       console.error("Registration error:", error);
       if (error.message.includes("User denied transaction signature")) {
-        setErrorMessage("Transaction was rejected in MetaMask. Please try again.");
+        setErrorMessage(
+          "Transaction was rejected in MetaMask. Please try again."
+        );
       } else if (error.message.includes("insufficient funds")) {
-        setErrorMessage("Insufficient funds to cover gas fees. Please add more ETH to your wallet.");
+        setErrorMessage(
+          "Insufficient funds to cover gas fees. Please add more ETH to your wallet."
+        );
       } else {
-        setErrorMessage("Registration failed: " + (error.message || "Unknown error occurred"));
+        setErrorMessage(
+          "Registration failed: " + (error.message || "Unknown error occurred")
+        );
       }
     } finally {
       setIsLoading(false);
@@ -133,81 +161,86 @@ export function RegisterAuditor() {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div>
-        <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-transparent dark:bg-black">
-          <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-            Auditor Registration
-          </h2>
-          {errorMessage && (
-            <div className="text-red-500 mb-4">{errorMessage}</div>
-          )}
-          <form className="my-8" onSubmit={handleSubmit}>
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="projectName">Name</Label>
-              <Input
-                id="projectName"
-                placeholder="Full Name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </LabelInputContainer>
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="projectSymbol">Email</Label>
-              <Input
-                id="projectSymbol"
-                placeholder="email@example.com"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </LabelInputContainer>
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="accreditationNumber">Accreditation Number</Label>
-              <Input
-                id="accreditationNumber"
-                placeholder="Enter your accreditation number"
-                type="text"
-                value={audiNo}
-                onChange={(e) => setAuditor(e.target.value)}
-                required
-              />
-            </LabelInputContainer>
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="metaMaskAddress">MetaMask Address</Label>
-              <Input
-                id="metaMaskAddress"
-                type="text"
-                value={metaMaskAddress}
-                readOnly
-              />
-            </LabelInputContainer>
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${landingimage})`,
+      }}
+    >
+      <div
+        className="max-w-md w-full mx-auto p-4 md:p-8 shadow-input bg-white rounded-md md:rounded-xl"
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
+      >
+        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+          Auditor Registration
+        </h2>
+        {errorMessage && (
+          <div className="text-red-500 mb-4">{errorMessage}</div>
+        )}
+        <form className="my-8" onSubmit={handleSubmit}>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="projectName">Name</Label>
+            <Input
+              id="projectName"
+              placeholder="Full Name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="projectSymbol">Email</Label>
+            <Input
+              id="projectSymbol"
+              placeholder="email@example.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="accreditationNumber">Accreditation Number</Label>
+            <Input
+              id="accreditationNumber"
+              placeholder="Enter your accreditation number"
+              type="text"
+              value={audiNo}
+              onChange={(e) => setAuditor(e.target.value)}
+              required
+            />
+          </LabelInputContainer>
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="metaMaskAddress">MetaMask Address</Label>
+            <Input
+              id="metaMaskAddress"
+              type="text"
+              value={metaMaskAddress}
+              readOnly
+            />
+          </LabelInputContainer>
 
-            <button
-              className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? "Processing..." : "Register"}
-              <BottomGradient />
-            </button>
-     
-            <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-          </form>
-          <p> Already a Auditor</p>
           <button
-              className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-              type="submit"
-              disabled={isLoading}  onClick={()=>navigate('/auditor-login')}
-            >
-             Login as Auditor
-              <BottomGradient />
-            </button>
-      
-        </div>
+            className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "Processing..." : "Register"}
+            <BottomGradient />
+          </button>
+
+          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        </form>
+        <p> Already an Auditor?</p>
+        <button
+          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          type="button"
+          onClick={() => navigate("/auditor-login")}
+        >
+          Login as Auditor
+          <BottomGradient />
+        </button>
       </div>
     </div>
   );

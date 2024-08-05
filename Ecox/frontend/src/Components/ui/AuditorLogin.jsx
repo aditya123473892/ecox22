@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/auth-slice';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/auth-slice";
+import landingimage from "../../assets/landingimage.jpg";
 
 // Mock function to simulate backend verification
 const mockVerifyCredentials = (name, accreditationNumber) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // Simulating a backend check
       if (name === "John Doe" && accreditationNumber === "12345") {
         resolve({ success: true, message: "Login successful" });
       } else {
         reject({ success: false, message: "Invalid credentials" });
       }
-    }, 1000); // Simulating network delay
+    }, 1000);
   });
 };
 
 function AuditorLogin() {
-  const [name, setName] = useState('');
-  const [accreditationNumber, setAccreditationNumber] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [accreditationNumber, setAccreditationNumber] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Ensure dispatch is properly initialized
+  const dispatch = useDispatch();
 
   const validateInputs = () => {
     if (!name.trim()) {
-      setError('Name is required');
+      setError("Name is required");
       return false;
     }
     if (!accreditationNumber.trim()) {
-      setError('Accreditation Number is required');
+      setError("Accreditation Number is required");
       return false;
     }
     if (accreditationNumber.length !== 5) {
-      setError('Accreditation Number must be 5 digits');
+      setError("Accreditation Number must be 5 digits");
       return false;
     }
     return true;
@@ -43,8 +43,8 @@ function AuditorLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    
+    setError("");
+
     if (!validateInputs()) {
       return;
     }
@@ -54,27 +54,38 @@ function AuditorLogin() {
     try {
       const result = await mockVerifyCredentials(name, accreditationNumber);
       if (result.success) {
-        // Successful login
         dispatch(login({ name, accreditationNumber }));
-        navigate('/auditor-dashboard');
+        navigate("/auditor-dashboard");
       } else {
         setError(result.message);
       }
     } catch (err) {
-      setError(err.message || 'Login failed. Please try again.');
+      setError(err.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Login as Auditor</h1>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${landingimage})`,
+      }}
+    >
+      <div className="max-w-lg w-full bg-white rounded-lg shadow-lg p-8 bg-opacity-90 backdrop-filter backdrop-blur-lg transform transition-all duration-300 hover:scale-105 border-2 border-black">
+        <h1 className="text-4xl font-bold text-center mb-6 text-gray-900 animate-fadeIn">
+          Login as Auditor
+        </h1>
+        {error && (
+          <p className="text-red-500 text-center mb-4 animate-shake">{error}</p>
+        )}
+        <form onSubmit={handleSubmit} className="animate-fadeInUp">
           <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Name
             </label>
             <input
@@ -87,7 +98,10 @@ function AuditorLogin() {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="accreditationNumber" className="block text-gray-700 text-sm font-bold mb-2">
+            <label
+              htmlFor="accreditationNumber"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
               Accreditation Number
             </label>
             <input
@@ -102,10 +116,10 @@ function AuditorLogin() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out transform hover:scale-105"
               disabled={isLoading}
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? "Logging in..." : "Login"}
             </button>
           </div>
         </form>

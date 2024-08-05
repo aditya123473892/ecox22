@@ -5,6 +5,7 @@ import HeroCard from "./HeroCard"; // Ensure you have this component correctly d
 import { ThreeDCardDemo } from "./ThreeDCardDemo";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 import Grids from "./Grids";
 const Landing = () => {
   const featuredProjects = [
@@ -18,53 +19,51 @@ const Landing = () => {
   const cardData = [
     {
       title: "Project 1",
-      imageUrl: "https://images.pexels.com/photos/9754/mountains-clouds-forest-fog.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      message: "Message for Project 1"
+      imageUrl:
+        "https://images.pexels.com/photos/9754/mountains-clouds-forest-fog.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      message: "Message for Project 1",
     },
     {
       title: "Project 2",
-      imageUrl: "https://images.pexels.com/photos/418831/pexels-photo-418831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      message: "Message for Project 2"
+      imageUrl:
+        "https://images.pexels.com/photos/418831/pexels-photo-418831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      message: "Message for Project 2",
     },
     {
       title: "Project 3",
-      imageUrl: "https://images.pexels.com/photos/167698/pexels-photo-167698.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      message: "Message for Project 3"
+      imageUrl:
+        "https://images.pexels.com/photos/167698/pexels-photo-167698.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      message: "Message for Project 3",
     },
     {
       title: "Project 4",
-      imageUrl: "https://images.pexels.com/photos/1834399/pexels-photo-1834399.jpeg?auto=compress&cs=tinysrgb&w=600",
-      message: "Message for Project 4"
+      imageUrl:
+        "https://images.pexels.com/photos/1834399/pexels-photo-1834399.jpeg?auto=compress&cs=tinysrgb&w=600",
+      message: "Message for Project 4",
     },
     {
       title: "Project 5",
-      imageUrl: "https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      message: "Message for Project 5"
-    }
+      imageUrl:
+        "https://images.pexels.com/photos/1061623/pexels-photo-1061623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      message: "Message for Project 5",
+    },
   ];
 
   return (
     <div>
-      
-
       <main>
         <HeroCard />
         <h2 className="text-center text-5xl font-bold">Featured projects</h2>
 
         <div className="p-8">
-          
           <Grids />
         </div>
         <h1 className="text-center text-5xl font-bold m-3">Get Started</h1>
         <div className="flex justify-center  gap-6 space-x-4">
-      <ThreeDCardDemo className="max-w-xs" />
-      <ThreeDCardDemo className="max-w-xs" />
-      <ThreeDCardDemo className="max-w-xs" />
-     
-    </div>
-    
-
-
+          <ThreeDCardDemo className="max-w-xs" />
+          <ThreeDCardDemo className="max-w-xs" />
+          <ThreeDCardDemo className="max-w-xs" />
+        </div>
 
         {/* 
         <section className="featured-projects">
